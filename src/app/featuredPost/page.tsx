@@ -26,7 +26,7 @@ export default function FeaturedPost() {
                 </div>
 
                 <h4 className="text-[30px] font-[400]">
-                  Loudest à la Madison #1 (L&apos;integral)
+                  Loudest a la Madison #1 (L&apos;integral)
                 </h4>
                 <p>
                   We focus on ergonomics and meeting you where you work.
@@ -60,7 +60,7 @@ export default function FeaturedPost() {
                 </div>
 
                 <h4 className="text-[30px] font-[400]">
-                  Loudest à la Madison #1 (L'integral)
+                  Loudest a la Madison #1 (L&apos;integral)
                 </h4>
                 <p>
                   We focus on ergonomics and meeting you where you work.
