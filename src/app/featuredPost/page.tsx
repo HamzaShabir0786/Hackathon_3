@@ -26,11 +26,11 @@ export default function FeaturedPost() {
                 </div>
 
                 <h4 className="text-[30px] font-[400]">
-                  Loudest à la Madison #1 (L'integral)
+                  Loudest à la Madison #1 (L&apos;integral)
                 </h4>
                 <p>
-                  We focus on ergonomics and meeting you where you work. It's
-                  only a keystroke away.{" "}
+                  We focus on ergonomics and meeting you where you work.
+                  It&apos;s only a keystroke away.
                 </p>
                 <div className="flex justify-between ">
                   <span className="text-[#737373] text-[12px] ">
@@ -63,8 +63,8 @@ export default function FeaturedPost() {
                   Loudest à la Madison #1 (L'integral)
                 </h4>
                 <p>
-                  We focus on ergonomics and meeting you where you work. It's
-                  only a keystroke away.{" "}
+                  We focus on ergonomics and meeting you where you work.
+                  It&apos;s only a keystroke away.{" "}
                 </p>
                 <div className="flex  justify-between">
                   <span className="text-[#737373] text-[12px] ">
@@ -94,11 +94,11 @@ export default function FeaturedPost() {
                 </div>
 
                 <h4 className="text-[30px] font-[400]">
-                  Loudest à la Madison #1 (L'integral)
+                  Loudest à la Madison #1 (L&apos;integral)
                 </h4>
                 <p>
-                  We focus on ergonomics and meeting you where you work. It's
-                  only a keystroke away.{" "}
+                  We focus on ergonomics and meeting you where you work.
+                  It&apos;s only a keystroke away.{" "}
                 </p>
                 <div className="flex  justify-between">
                   <span className="text-[#737373] text-[12px] ">

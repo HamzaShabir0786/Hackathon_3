@@ -92,10 +92,10 @@ export default function Contact() {
               </div>
               <div className=" py-[40px]">
                 <h5 className=" text-[#252B42] font-bold text-[16px]">
-                  WE Can't WAIT TO MEET YOU
+                  WE Can&apos;t WAIT TO MEET YOU
                 </h5>
                 <h2 className="text-[58px] font-bold text-[#252B42} ">
-                  Let’s Talk
+                  Let&apos;s Talk
                 </h2>
                 <button className="w-[15rem] p-[1.2rem] rounded-md mt-2 bg-[#23A6F0] font-bold text-white">
                   Try it free now
