@@ -1,0 +1,98 @@
+[
+  {
+    "imageSrc": "/images/bg-f1.png",
+    "id": 1,
+    "h5": " Graphic Design",
+    "span1": "$14.49",
+    "span2": "$4.49",
+    "a": "English Department"
+  },
+  {
+    "imageSrc": "/images/bg-f2.png",
+    "id": 2,
+    "h5": " Graphic Design",
+    "span1": "$14.49",
+    "span2": "$4.49",
+    "a": "English Department"
+  },
+  {
+    "imageSrc": "/images/bg-f3.png",
+    "id": 3,
+    "h5": " Graphic Design",
+    "span1": "$14.49",
+    "span2": "$4.49",
+    "a": "English Department"
+  },
+  {
+    "imageSrc": "/images/bg-f4.png",
+    "id": 4,
+    "h5": " Graphic Design",
+    "span1": "$14.49",
+    "span2": "$4.49",
+    "a": "English Department"
+  },
+  {
+    "imageSrc": "/images/bg-f5.png",
+    "id": 5,
+    "h5": " Graphic Design",
+    "span1": "$14.49",
+    "span2": "$4.49",
+    "a": "English Department"
+  },
+  {
+    "imageSrc": "/images/bg-f6.png",
+    "id": 6,
+    "h5": " Graphic Design",
+    "span1": "$14.49",
+    "span2": "$4.49",
+    "a": "English Department"
+  },
+  {
+    "imageSrc": "/images/bg-f7.png",
+    "id": 7,
+    "h5": " Graphic Design",
+    "span1": "$14.49",
+    "span2": "$4.49",
+    "a": "English Department"
+  },
+  {
+    "imageSrc": "/images/t-inno-1.jpg",
+    "id": 8,
+    "h5": " Graphic Design",
+    "span1": "$14.49",
+    "span2": "$4.49",
+    "a": "English Department"
+  },
+  {
+    "imageSrc": "/images/bg-f8.png",
+    "id": 9,
+    "h5": " Graphic Design",
+    "span1": "$14.49",
+    "span2": "$4.49",
+    "a": "English Department"
+  },
+  {
+    "imageSrc": "/images/t-inno-5.jpg",
+    "id": 10,
+    "h5": " Graphic Design",
+    "span1": "$14.49",
+    "span2": "$4.49",
+    "a": "English Department"
+  },
+  {
+    "imageSrc": "/images/t-inno-3.jpg",
+    "id": 11,
+    "h5": " Graphic Design",
+    "span1": "$14.49",
+    "span2": "$4.49",
+    "a": "English Department"
+  },
+  {
+    "imageSrc": "/images/t-inno-8.jpg",
+    "id": 12,
+    "h5": " Graphic Design",
+    "span1": "$14.49",
+    "span2": "$4.49",
+    "a": "English Department"
+  }
+]
