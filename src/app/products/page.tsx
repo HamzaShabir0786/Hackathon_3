@@ -65,7 +65,8 @@ export default function FeaturedProducts() {
               <div className="nested-all-feature-2 n-f-2-1">
                 <h5 className="text-[16px] font-bold">{product.title}</h5>
                 <p className="text-[14px] text-[#737373]">
-                  {product.description}
+                  {/* {product.description} */}
+                  description
                 </p>
                 <div className="span-div-price">
                   <div className="price-1">${product.price}</div>
