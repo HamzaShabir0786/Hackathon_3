@@ -72,12 +72,12 @@ export default function FeaturedProducts() {
                   <div className="price-1">${product.price}</div>
                   <div className="price-2">${product.dicountPercentage}</div>
                 </div>
-                <div className="roll-div">
+                {/* <div className="roll-div">
                   <div className="w-[16px] h-[16px] rounded-[50%] roll-bg-1"></div>
                   <div className="w-[16px] h-[16px] rounded-[50%] roll-bg-2"></div>
                   <div className="w-[16px] h-[16px] rounded-[50%] roll-bg-3"></div>
                   <div className="w-[16px] h-[16px] rounded-[50%] roll-bg-4"></div>
-                </div>
+                </div> */}
               </div>
             </div>
           ))}
