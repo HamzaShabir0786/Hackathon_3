@@ -1,7 +1,9 @@
 "use client";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
 import Link from "next/link";
 import ResponsiveNav from "../responsive-nav/responsiveNav";
+import { Input } from "postcss";
 
 export default function Header({ bgColor = "bg-[#252B42]" }) {
   const Data = [
@@ -12,6 +14,17 @@ export default function Header({ bgColor = "bg-[#252B42]" }) {
     { title: "Contact" },
     { title: "Products" },
   ];
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredData, setFilteredData] = useState(Data);
+  const handleSearch = (event: any) => {
+    const value = event.target.value.toLowerCase();
+
+    setSearchTerm(value);
+    const filtered = Data.filter((item) =>
+      item.title.toLowerCase().includes(value)
+    );
+    setFilteredData(filtered);
+  };
 
   const pathname = usePathname();
 
@@ -106,9 +119,16 @@ export default function Header({ bgColor = "bg-[#252B42]" }) {
               </div>
             </div>
             <div className="flex items-center justify-between w-[120px] px-4 h-9">
-              <i className="fa-solid fa-solid-home-nav fa-magnifying-glass h-[46px] "></i>
+              <i
+                className="fa-solid fa-solid-home-nav fa-magnifying-glass h-[46px] cursor-pointer"
+                onClick={handleSearch}
+              ></i>
+              <input
+                type="search"
+                className={`outline-double outline-black bg-blue-50  w-34 ml-[-6rem] mb-12 absolute hiddent`}
+              />
               <i className="fa-solid fa-solid-home-nav fa-cart-shopping h-[46px] ">
-                1{" "}
+                1
               </i>
               <i className="fa-regular fa-solid fa-solid-home-nav fa-heart h-[46px]">
                 1
