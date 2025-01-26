@@ -4,21 +4,40 @@ import { useEffect, useState } from "react";
 import { Image as IImage } from "sanity";
 import { client } from "@/sanity/lib/client";
 
-const getproduct = async () => {
-  return await client.fetch(
-    `*[_type == "product"]{
-      _id,
-      title,
-      description,
-      price,
-      dicountPercentage,
-      tags,
-      isNew,
-      "productImage": productImage.asset->url
-    }`
-  );
-};
+// const getproduct = async () => {
+//   return await client.fetch(
+//     `*[_type == "product"]{
+//       _id,
+//       title,
+//       description,
+//       price,
+//       dicountPercentage,
+//       tags,
+//       isNew,
+//       "productImage": productImage.asset->url
+//     }`
+//   );
+// };
+async function getproduct() {
+  let res = await client.fetch(`*[_type == "product"]{
+           _id,
+          title,
+          description,
+          price,
+          dicountPercentage,
+          tags,
+          isNew,
+          "productImage": productImage.asset->url
+        }`);
 
+  // if (!res.ok) {
+  //   throw new Error(`Failed to fetch products: ${res.status}`);
+  // } else {
+
+  return res;
+
+  // }
+}
 interface DataType {
   title: string;
   description: string;
