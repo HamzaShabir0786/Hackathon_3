@@ -87,6 +87,7 @@ export default function FeaturedProducts() {
                   {/* {product.description} */}
                   description
                 </p>
+                <p>id {product._id}</p>
                 <div className="span-div-price">
                   <div className="price-1">${product.price}</div>
                   <div className="price-2">${product.dicountPercentage}</div>
