@@ -24,7 +24,7 @@ export default function Header({ bgColor = "bg-[#252B42]" }) {
       ref.current.classList.add("hidden");
     }
   };
-  const ref = useRef<HTMLElement>(null);
+  const ref: any = useRef<HTMLElement>();
   return (
     <>
       <nav className="nav-con   max-w-[100%] m-auto   sticky top-0 z-50   ">
