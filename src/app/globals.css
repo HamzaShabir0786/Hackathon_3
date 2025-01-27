@@ -416,7 +416,7 @@
 }
 
 .span-roll-div {
-  @apply flex items-center gap-[15px];
+  @apply flex items-center gap-[15px] mt-4;
 }
 .span-roll-div span {
   @apply h-[2.5rem] w-[2.5rem] block rounded-[50%];
