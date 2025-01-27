@@ -72,6 +72,10 @@ export default function FeaturedProducts() {
                   <div className="price-1">${product.price}</div>
                   <div className="price-2">${product.dicountPercentage}</div>
                 </div>
+                <div className="bg-sky-500 text-white p-2 w-32 rounded-md flex justify-between items-center cursor-pointer hover:bg-sky-600">
+                  Add to Cart
+                  <i className="fa-solid fa-cart-shopping"></i>
+                </div>
               </div>
             </div>
           ))}

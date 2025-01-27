@@ -92,7 +92,7 @@ export default async function ProductPage({ params }: Props) {
                   In Stock{" "}
                 </h6>
               </div>
-              <div className="para-div-prodcut-1 p-4 overflow-y-scroll">
+              <div className="para-div-prodcut-1 description-div p-4 overflow-y-scroll">
                 <p className="text-[14px] font-bold text-[#858585]">
                   {product.description}
                 </p>
