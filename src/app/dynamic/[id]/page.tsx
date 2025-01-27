@@ -1,7 +1,7 @@
 import Header from "@/app/components/Header/Header";
 import { client } from "@/sanity/lib/client";
 import { Image as IImage } from "sanity";
-
+import Products from "@/app/products/page"; // Import the correct path to the Products component
 interface Props {
   params: { id: string };
 }
@@ -119,6 +119,7 @@ export default async function ProductPage({ params }: Props) {
             </div>
           </div>
         </div>
+        <Products />
       </div>
     </>
   );
