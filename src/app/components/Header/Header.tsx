@@ -1,9 +1,8 @@
 "use client";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Link from "next/link";
 import ResponsiveNav from "../responsive-nav/responsiveNav";
-import { Input } from "postcss";
 
 export default function Header({ bgColor = "bg-[#252B42]" }) {
   const Data = [
@@ -16,10 +15,19 @@ export default function Header({ bgColor = "bg-[#252B42]" }) {
   ];
 
   const pathname = usePathname();
-
+  const toggleCart = () => {
+    if (ref.current.classList.contains("hidden")) {
+      ref.current.classList.remove("hidden");
+      ref.current.classList.add("visible");
+    } else if (!ref.current.classList.contains("hidden")) {
+      ref.current.classList.remove("visible");
+      ref.current.classList.add("hidden");
+    }
+  };
+  const ref = useRef<HTMLElement>(null);
   return (
     <>
-      <nav className="nav-con   max-w-[100%] m-auto   sticky top-0 z-50">
+      <nav className="nav-con   max-w-[100%] m-auto   sticky top-0 z-50   ">
         <div
           className={`child-nav-1    h-[3rem]  flex items-center justify-between px-4 text-white ${bgColor}`}
         >
@@ -113,12 +121,78 @@ export default function Header({ bgColor = "bg-[#252B42]" }) {
                 type="search"
                 className={`outline-double outline-black bg-blue-50  w-34 ml-[-6rem] mb-12  hidden`}
               />
-              <i className="fa-solid fa-solid-home-nav fa-cart-shopping h-[46px] ">
-                1
+              <i
+                onClick={toggleCart}
+                className="fa-solid fa-solid-home-nav fa-cart-shopping h-[46px]  cursor-pointer "
+              >
+                <div className="h-4 w-4 rounded-[100%] bg-[#23a6f0] text-white flex justify-center items-center text-[8px] ml-[-15px] font-normal mt-[-35px]">
+                  110
+                </div>
               </i>
               <i className="fa-regular fa-solid fa-solid-home-nav fa-heart h-[46px]">
-                1
+                <div className="h-4 w-4 rounded-[100%] bg-[#23a6f0] text-white flex justify-center items-center text-[8px] ml-[-15px] font-normal mt-[-35px]">
+                  100
+                </div>
               </i>
+            </div>
+            <div
+              ref={ref}
+              className="sideCart w-[320px] h-[40rem] absolute top-0 right-0 bg-[#252B42]  text-white hidden"
+            >
+              <div className="flex justify-around items-center text-white bg-[#252B42] h-[3rem] ">
+                <b>Shoping Cart</b>
+                <b onClick={toggleCart} className="text-[30px] cursor-pointer">
+                  x
+                </b>
+              </div>
+              <div>
+                <ol className="flex flex-col gap-y-1">
+                  <li className="bg-purple-700 py-2">
+                    <div className="flex items-center gap-5">
+                      <div className="flex justify-around w-[100%] ">
+                        <span>1</span>
+                        <span>Product Name</span>
+                        <span>-</span>
+                        <span>$134</span> <span>+</span>
+                      </div>
+                    </div>
+                  </li>
+                  <li className="bg-purple-700 py-2">
+                    <div className="flex items-center gap-5">
+                      <div className="flex justify-around w-[100%] ">
+                        <span>1</span>
+                        <span>Product Name</span>
+                        <span>-</span>
+                        <span>$134</span> <span>+</span>
+                      </div>
+                    </div>
+                  </li>
+                  <li className="bg-purple-700 py-2">
+                    <div className="flex items-center gap-5">
+                      <div className="flex justify-around w-[100%] ">
+                        <span>1</span>
+                        <span>Product Name </span>
+                        <span>-</span>
+                        <span>$134</span> <span>+</span>
+                      </div>
+                    </div>
+                  </li>
+                  <li className="bg-purple-700 py-2">
+                    <div className="flex items-center gap-5">
+                      <div className="flex justify-around w-[100%] ">
+                        <span>1</span>
+                        <span>Product Name</span>
+                        <span>-</span>
+                        <span>$134</span> <span>+</span>
+                      </div>
+                    </div>
+                  </li>
+                </ol>
+                <div className="bg-sky-500 text-white p-2 w-32 rounded-md flex justify-between items-center cursor-pointer hover:bg-sky-600 ml-[30%] mt-[100%]">
+                  Add to Cart
+                  <i className="fa-solid fa-cart-shopping"></i>
+                </div>
+              </div>
             </div>
           </div>
         </div>
