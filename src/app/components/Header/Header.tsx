@@ -20,13 +20,15 @@ export default function Header({
     { title: "Contact" },
     { title: "Products" },
   ];
-  const [cartNumber, setCartNumber] = useState(0);
-  const [cartItems, setCartItems]: any = useState();
+  const [cartNumber, setCartNumber]: any = useState(0);
+  const [cartItems, setCartItems]: any = useState([]);
+
   useEffect(() => {
     if (cartdata) {
-      if (cartNumber) {
+      if (cartNumber >= 1) {
+        setCartNumber(cartNumber + 1);
       } else {
-        setCartNumber(1);
+        setCartNumber(cartItems.length + 1);
         setCartItems([cartItems]);
       }
       localStorage.setItem("cart", JSON.stringify([cartItems]));
