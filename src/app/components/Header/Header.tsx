@@ -1,10 +1,17 @@
 "use client";
 import { usePathname } from "next/navigation";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import ResponsiveNav from "../responsive-nav/responsiveNav";
-
-export default function Header({ bgColor = "bg-[#252B42]" }) {
+import { Cardo } from "next/font/google";
+type HeaderProps = {
+  bgColor?: string;
+  cartdata?: any; // Replace `any` with the correct type of `cartdata`
+};
+export default function Header({
+  bgColor = "bg-[#252B42]",
+  cartdata,
+}: HeaderProps) {
   const Data = [
     { title: "Home" },
     { title: "Shop" },
@@ -13,6 +20,21 @@ export default function Header({ bgColor = "bg-[#252B42]" }) {
     { title: "Contact" },
     { title: "Products" },
   ];
+  const [cartNumber, setCartNumber] = useState(0);
+  const [cartItems, setCartItems]: any = useState();
+  useEffect(() => {
+    if (cartdata) {
+      if (cartNumber) {
+      } else {
+        setCartNumber(1);
+        setCartItems([cartItems]);
+      }
+      localStorage.setItem("cart", JSON.stringify([cartItems]));
+    }
+    //  else {
+    //   alert("hel");
+    // }
+  }, [cartdata]);
 
   const pathname = usePathname();
   const toggleCart = () => {
@@ -25,6 +47,7 @@ export default function Header({ bgColor = "bg-[#252B42]" }) {
     }
   };
   const ref: any = useRef<HTMLElement>();
+  console.log("HL3O");
   return (
     <>
       <nav className="nav-con   max-w-[100%] m-auto   sticky top-0 z-50   ">
@@ -126,7 +149,7 @@ export default function Header({ bgColor = "bg-[#252B42]" }) {
                 className="fa-solid fa-solid-home-nav fa-cart-shopping h-[46px]  cursor-pointer "
               >
                 <div className="h-4 w-4 rounded-[100%] bg-[#23a6f0] text-white flex justify-center items-center text-[8px] ml-[-15px] font-normal mt-[-35px]">
-                  110
+                  {cartNumber}
                 </div>
               </i>
               <i className="fa-regular fa-solid fa-solid-home-nav fa-heart h-[46px]">
