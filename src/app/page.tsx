@@ -1,10 +1,11 @@
 // import Image from "next/image";
 import Desktop2 from "./desktop2/page";
-import Products from "./components/products/products";
+import Products from "./products/page";
 import VitalClassic from "./vitalClassic/page";
 import Fluid from "./containerFluid/page";
 import FeaturedPost from "./featuredPost/page";
 import Header from "./components/Header/Header";
+import { useState } from "react";
 export default function Home() {
   return (
     <>

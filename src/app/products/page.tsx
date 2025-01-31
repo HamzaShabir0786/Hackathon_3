@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 import { Image as IImage } from "sanity";
 import { client } from "@/sanity/lib/client";
 import Link from "next/link";
-import Header from "../Header/Header";
+import Header from "../components/Header/Header";
+import { product } from "@/sanity/schemaTypes/products";
 
 const getproduct = async () => {
   return await client.fetch(
@@ -45,7 +46,7 @@ export default function FeaturedProducts() {
   const AddtoCart = (item: any) => {
     setCartData(item);
   };
-  console.log(cartData);
+
   return (
     <>
       <div>
@@ -77,6 +78,7 @@ export default function FeaturedProducts() {
 
                 <div className="nested-all-feature-2 n-f-2-1">
                   <h5 className="text-[16px] font-bold">{product.title}</h5>
+
                   <p className="text-[14px] text-[#737373]">description</p>
 
                   <div className="span-div-price">

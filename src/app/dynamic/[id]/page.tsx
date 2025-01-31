@@ -1,7 +1,7 @@
 import Header from "@/app/components/Header/Header";
 import { client } from "@/sanity/lib/client";
 import { Image as IImage } from "sanity";
-import Products from "@/app/components/products/products";
+import Products from "@/app/products/page";
 interface Props {
   params: { id: string };
 }

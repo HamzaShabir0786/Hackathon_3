@@ -3,11 +3,11 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import ResponsiveNav from "../responsive-nav/responsiveNav";
-import { Cardo } from "next/font/google";
 type HeaderProps = {
   bgColor?: string;
-  cartdata?: any; // Replace `any` with the correct type of `cartdata`
+  cartdata?: any;
 };
+
 export default function Header({
   bgColor = "bg-[#252B42]",
   cartdata,
@@ -49,7 +49,7 @@ export default function Header({
     }
   };
   const ref: any = useRef<HTMLElement>();
-  console.log("HL3O");
+
   return (
     <>
       <nav className="nav-con   max-w-[100%] m-auto   sticky top-0 z-50   ">
