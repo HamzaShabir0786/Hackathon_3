@@ -22,6 +22,7 @@ export default function Header({
   ];
   const [cartNumber, setCartNumber]: any = useState(0);
   const [cartItems, setCartItems]: any = useState([]);
+  console.log(cartdata?.price);
 
   useEffect(() => {
     if (cartdata) {
@@ -31,7 +32,7 @@ export default function Header({
         setCartNumber(cartItems.length + 1);
         setCartItems([cartItems]);
       }
-      localStorage.setItem("cart", JSON.stringify([cartItems]));
+      // localStorage.setItem("cart", JSON.stringify([cartItems]));
     }
     //  else {
     //   alert("hel");

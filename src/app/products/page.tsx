@@ -35,6 +35,7 @@ interface DataType {
 export default function FeaturedProducts() {
   const [products, setProducts] = useState<DataType[]>([]);
   const [cartData, setCartData] = useState();
+  const [localData, setLocalData] = useState();
 
   useEffect(() => {
     (async () => {
@@ -45,6 +46,7 @@ export default function FeaturedProducts() {
 
   const AddtoCart = (item: any) => {
     setCartData(item);
+    localStorage.setItem("mycart", JSON.stringify([item]));
   };
 
   return (
