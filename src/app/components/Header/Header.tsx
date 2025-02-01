@@ -20,14 +20,21 @@ export default function Header({
     { title: "Contact" },
     { title: "Products" },
   ];
+  const [productName, setProductName] = useState("");
+  const [productPrice, setProductPrice] = useState();
+  const [productCountplus, setProductCountPlus] = useState();
   const [cartNumber, setCartNumber]: any = useState(0);
   const [cartItems, setCartItems]: any = useState([]);
+
   console.log(cartdata?.price);
 
   useEffect(() => {
     if (cartdata) {
       if (cartNumber >= 1) {
         setCartNumber(cartNumber + 1);
+        setProductName(cartdata.title);
+        setProductPrice(cartdata.price);
+        setProductCountPlus(cartNumber + 1);
       } else {
         setCartNumber(cartItems.length + 1);
         setCartItems([cartItems]);
@@ -38,7 +45,9 @@ export default function Header({
     //   alert("hel");
     // }
   }, [cartdata]);
-
+  const increase = () => {
+    setProductCountPlus(cartdata.price + cartdata.price);
+  };
   const pathname = usePathname();
   const toggleCart = () => {
     if (ref.current.classList.contains("hidden")) {
@@ -177,9 +186,12 @@ export default function Header({
                     <div className="flex items-center gap-5">
                       <div className="flex justify-around w-[100%] ">
                         <span>1</span>
-                        <span>Product Name</span>
+                        <span>{productName}</span>
                         <span>-</span>
-                        <span>$134</span> <span>+</span>
+                        <span>${productCountplus}</span>
+                        <span onClick={increase} className="cursor-pointer">
+                          +
+                        </span>
                       </div>
                     </div>
                   </li>
