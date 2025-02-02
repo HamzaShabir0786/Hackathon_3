@@ -4,7 +4,6 @@ import { Image as IImage } from "sanity";
 import { client } from "@/sanity/lib/client";
 import Link from "next/link";
 import Header from "../components/Header/Header";
-import { product } from "@/sanity/schemaTypes/products";
 
 const getproduct = async () => {
   return await client.fetch(

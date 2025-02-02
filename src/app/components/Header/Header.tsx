@@ -1,6 +1,6 @@
 "use client";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import Link from "next/link";
 import ResponsiveNav from "../responsive-nav/responsiveNav";
 type HeaderProps = {
@@ -20,34 +20,8 @@ export default function Header({
     { title: "Contact" },
     { title: "Products" },
   ];
-  const [productName, setProductName] = useState("");
-  const [productPrice, setProductPrice] = useState();
-  const [productCountplus, setProductCountPlus] = useState();
-  const [cartNumber, setCartNumber]: any = useState(0);
-  const [cartItems, setCartItems]: any = useState([]);
 
   console.log(cartdata?.price);
-
-  useEffect(() => {
-    if (cartdata) {
-      if (cartNumber >= 1) {
-        setCartNumber(cartNumber + 1);
-        setProductName(cartdata.title);
-        setProductPrice(cartdata.price);
-        setProductCountPlus(cartNumber + 1);
-      } else {
-        setCartNumber(cartItems.length + 1);
-        setCartItems([cartItems]);
-      }
-      // localStorage.setItem("cart", JSON.stringify([cartItems]));
-    }
-    //  else {
-    //   alert("hel");
-    // }
-  }, [cartdata]);
-  const increase = () => {
-    setProductCountPlus(cartdata.price + cartdata.price);
-  };
   const pathname = usePathname();
   const toggleCart = () => {
     if (ref.current.classList.contains("hidden")) {
@@ -161,7 +135,7 @@ export default function Header({
                 className="fa-solid fa-solid-home-nav fa-cart-shopping h-[46px]  cursor-pointer "
               >
                 <div className="h-4 w-4 rounded-[100%] bg-[#23a6f0] text-white flex justify-center items-center text-[8px] ml-[-15px] font-normal mt-[-35px]">
-                  {cartNumber}
+                  0
                 </div>
               </i>
               <i className="fa-regular fa-solid fa-solid-home-nav fa-heart h-[46px]">
@@ -186,42 +160,10 @@ export default function Header({
                     <div className="flex items-center gap-5">
                       <div className="flex justify-around w-[100%] ">
                         <span>1</span>
-                        <span>{productName}</span>
+                        <span>product Name</span>
                         <span>-</span>
-                        <span>${productCountplus}</span>
-                        <span onClick={increase} className="cursor-pointer">
-                          +
-                        </span>
-                      </div>
-                    </div>
-                  </li>
-                  <li className="bg-purple-700 py-2">
-                    <div className="flex items-center gap-5">
-                      <div className="flex justify-around w-[100%] ">
-                        <span>1</span>
-                        <span>Product Name</span>
-                        <span>-</span>
-                        <span>$134</span> <span>+</span>
-                      </div>
-                    </div>
-                  </li>
-                  <li className="bg-purple-700 py-2">
-                    <div className="flex items-center gap-5">
-                      <div className="flex justify-around w-[100%] ">
-                        <span>1</span>
-                        <span>Product Name </span>
-                        <span>-</span>
-                        <span>$134</span> <span>+</span>
-                      </div>
-                    </div>
-                  </li>
-                  <li className="bg-purple-700 py-2">
-                    <div className="flex items-center gap-5">
-                      <div className="flex justify-around w-[100%] ">
-                        <span>1</span>
-                        <span>Product Name</span>
-                        <span>-</span>
-                        <span>$134</span> <span>+</span>
+                        <span>$99</span>
+                        <span className="cursor-pointer">+</span>
                       </div>
                     </div>
                   </li>
