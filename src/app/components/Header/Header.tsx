@@ -15,202 +15,175 @@ export default function Header() {
   ];
 
   const [cartImportData, setCartImportData] = useState<any[]>([]);
+
   useEffect(() => {
     const storedCart = localStorage.getItem("mycart");
     if (storedCart) {
-      setCartImportData(JSON.parse(storedCart || "[]"));
+      setCartImportData(JSON.parse(storedCart));
     }
   }, []);
 
-  const [incr, setIncr] = useState<any>(0);
-  const [totalItems, setTotalItems] = useState<number>(0);
-  const increase = (data: any) => {
-    setIncr(incr + data);
-    // console.log(data + incr);
-    setTotalItems(totalItems + 1);
-  };
-  const decrease = (data: any) => {
-    setIncr(incr - data);
-    setTotalItems(totalItems - 1);
-    // console.log(data + incr);
-  };
-  const toggleCart = () => {
-    if (ref.current.classList.contains("hidden")) {
-      ref.current.classList.remove("hidden");
-      ref.current.classList.add("visible");
-    } else if (!ref.current.classList.contains("hidden")) {
-      ref.current.classList.remove("visible");
-      ref.current.classList.add("hidden");
+  useEffect(() => {
+    localStorage.setItem("mycart", JSON.stringify(cartImportData));
+  }, [cartImportData]);
+
+  const totalItems = cartImportData.reduce(
+    (acc, item) => acc + item.quantity,
+    0
+  );
+
+  const addToCart = (product: any) => {
+    const existingItem = cartImportData.find(
+      (item) => item._id === product._id
+    );
+    if (existingItem) {
+      const updatedCart = cartImportData.map((item) =>
+        item._id === product._id
+          ? { ...item, quantity: item.quantity + 1 }
+          : item
+      );
+      setCartImportData(updatedCart);
+    } else {
+      setCartImportData([...cartImportData, { ...product, quantity: 1 }]);
     }
   };
-  const ref: any = useRef<HTMLElement>();
+
+  const increaseQuantity = (id: string) => {
+    setCartImportData(
+      cartImportData.map((item) =>
+        item._id === id ? { ...item, quantity: item.quantity + 1 } : item
+      )
+    );
+  };
+
+  const decreaseQuantity = (id: string) => {
+    setCartImportData(
+      cartImportData.map((item) =>
+        item._id === id && item.quantity > 1
+          ? { ...item, quantity: item.quantity - 1 }
+          : item
+      )
+    );
+  };
+
+  const removeFromCart = (id: string) => {
+    setCartImportData(cartImportData.filter((item) => item._id !== id));
+  };
+
+  const ref = useRef<HTMLDivElement>(null);
+  const toggleCart = () => {
+    if (ref.current) {
+      ref.current.classList.toggle("hidden");
+      ref.current.classList.toggle("visible");
+    }
+  };
+
   const pathname = usePathname();
 
   return (
-    <>
-      <nav className="nav-con   max-w-[100%] m-auto   sticky top-0 z-50  bg-[#252B42] ">
-        <div
-          className={`child-nav-1    h-[3rem]  flex items-center justify-between px-4 text-white`}
-        >
-          <div className="flex justify-between ">
-            <div className=" flex items-center gap-6 h-[46px] font-bold text-[14px] px-2">
-              <div className="number-nav flex gap-6 items-center">
-                <i className="fa-solid fa-solid-home-nav fa-phone text-white"></i>
-                <h6>(225)555-0118</h6>
-              </div>
-              <div className="email-nav  flex gap-6 items-center">
-                <i className="fa-solid fa-solid-home-nav fa-message text-white"></i>
-                <h6>hamzii2205@gmail.com</h6>
-              </div>
-            </div>
-          </div>
-          <div className="follow-us-nav  h-[46px] flex items-center ">
-            <h6 className="text-[14px] font-bold ">
-              Follow US and get a chance to Win 80% Off
-            </h6>
-          </div>
-          <div className="follow-us-icons-nav w-[auto]   h-[46px] p-[10px] gap-[10px] flex ">
-            <h6 className=" font-[700] text-[14px] leading-[24px] text-white">
-              Follow US:
-            </h6>
-            <div className="w-[120px] h-[26px]">
-              <a
-                href="https://www.instagram.com/hamza_shabir_0786/?hl=en"
-                target="_blank"
+    <nav className="nav-con max-w-[100%] m-auto sticky top-0 z-50 bg-[#252B42]">
+      <div className="child-nav-1 h-[3rem] flex items-center justify-between px-4 text-white">
+        <div className="flex items-center gap-6">
+          <i className="fa-solid fa-phone"></i>
+          <h6>(225)555-0118</h6>
+          <i className="fa-solid fa-message"></i>
+          <h6>hamzii2205@gmail.com</h6>
+        </div>
+        <div>
+          <h6 className="text-[14px] font-bold">
+            Follow Us and get a chance to Win 80% Off
+          </h6>
+        </div>
+      </div>
+
+      <div className="child-nav-2 bg-white px-4 h-[4rem] flex items-center justify-between">
+        <h3 className="font-bold text-[24px]">Bandage</h3>
+
+        <ul className="flex list-none font-bold gap-[15px] text-[#737373] text-[13px]">
+          {Data.map((item, index) => (
+            <li key={index}>
+              <Link
+                href={`/${item.title === "Home" ? "" : item.title.toLowerCase()}`}
+                className={
+                  pathname ===
+                  `/${item.title === "Home" ? "" : item.title.toLowerCase()}`
+                    ? "text-blue-800 bg-blue-100 p-2 rounded-lg"
+                    : "hover:bg-blue-100 hover:p-2 hover:rounded-md"
+                }
               >
-                <i className="fa-brands fa-instagram"></i>
-              </a>
-              <a href="https://www.youtube.com/" target="_blank">
-                <i className="fa-brands fa-youtube"></i>
-              </a>
-              <a href="https://web.facebook.com/M.Hamza2205" target="_blank">
-                <i className="fa-brands fa-facebook"></i>
-              </a>
-              <a href="https://x.com/hamzii2205/" target="_blank">
-                <i className="fa-brands fa-twitter"></i>
-              </a>
-            </div>
+                {item.title}
+              </Link>
+            </li>
+          ))}
+        </ul>
+
+        <div className="flex items-center gap-5 text-[#23a6f0]">
+          <div>
+            <i className="fa-solid fa-user pr-2"></i>
+            <a href="#">Login</a> / <a href="#">Register</a>
+          </div>
+
+          <div className="relative cursor-pointer" onClick={toggleCart}>
+            <i className="fa-solid fa-cart-shopping"></i>
+            {totalItems > 0 && (
+              <span className="absolute top-[-8px] right-[-8px] h-4 w-4 rounded-full bg-[#23a6f0] text-white text-[8px] flex justify-center items-center">
+                {totalItems}
+              </span>
+            )}
           </div>
         </div>
+      </div>
 
-        <div className="child-nav-2 bg-white px-4 h-[4rem] flex items-center justify-between">
-          <div>
-            <h3 className="font-bold text-[24px]">Bandage</h3>
-          </div>
-          <div>
-            <ul className="li-div-nav ul-nav flex list-none font-bold gap-[15px] text-[#737373] text-[13px]">
-              {Data.map((item, index) => {
-                //const isActive = pathname.startsWith(item.title);
-
-                return (
-                  <li key={index}>
-                    {/* <Link
-                      href={`/${item.title == "Home" ? "/" : item.title == "Pages" ? "/" : item.title == "Blog" ? "innovation/" : item.title.toLocaleLowerCase()}`}
-                      className={isActive ? "bg-red-800" : "bg-green-600"}
-                    >
-                      {item.title}
-                      </Link> */}
-                    <Link
-                      href={`/${item.title === "Home" ? "" : item.title === "Products" ? "" : item.title === "Blog" ? "innovation" : item.title.toLowerCase()}`}
-                      className={
-                        pathname ===
-                        `/${item.title === "Home" ? "" : item.title === "Blog" ? "innovation" : item.title.toLowerCase()}`
-                          ? "text-blue-800 bg-blue-100 p-2 rounded-lg"
-                          : "hover:bg-blue-100 hover:p-2 hover:rounded-md"
-                      }
-                    >
-                      {item.title}
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-
-          <div className=" login-nav  flex items-center gap-5 text-[#23a6f0] h-[46px] p-4">
-            <div className="flex items-center  h-9">
-              <div className="flex items-center  ">
-                <i className="fa-solid fa-solid-home-nav fa-user pr-2 "></i>
-                <div>
-                  <a href="#">Login</a> / <a href="#">Register</a>
+      <div
+        ref={ref}
+        className="sideCart w-[320px] h-[40rem] absolute top-0 right-0 bg-[#252B42] text-white hidden"
+      >
+        <div className="flex justify-between items-center bg-[#252B42] p-4">
+          <b>Shopping Cart</b>
+          <b onClick={toggleCart} className="text-[30px] cursor-pointer">
+            x
+          </b>
+        </div>
+        <div>
+          <ol className="flex flex-col gap-y-1">
+            {cartImportData.map((e, index) => (
+              <li key={index} className="bg-purple-700 py-2">
+                <div className="flex items-center gap-5">
+                  <span className="w-[25rem] text-center bg-blue-900 ">
+                    {e.title}
+                  </span>
+                  <span
+                    onClick={() => decreaseQuantity(e._id)}
+                    className="cursor-pointer bg-pink-400 px-2 rounded-full"
+                  >
+                    -
+                  </span>
+                  <span>{e.quantity}</span>
+                  <span
+                    onClick={() => increaseQuantity(e._id)}
+                    className="cursor-pointer"
+                  >
+                    +
+                  </span>
+                  <span>${e.price * e.quantity}</span>
+                  <button
+                    onClick={() => removeFromCart(e._id)}
+                    className="text-red-600"
+                  >
+                    Re
+                  </button>
                 </div>
-              </div>
-            </div>
-            <div className="flex items-center justify-between w-[120px] px-4 h-9">
-              <i className="fa-solid fa-solid-home-nav fa-magnifying-glass h-[46px] cursor-pointer"></i>
-              <input
-                type="search"
-                className={`outline-double outline-black bg-blue-50  w-34 ml-[-6rem] mb-12  hidden`}
-              />
-              <i
-                onClick={toggleCart}
-                className="fa-solid fa-solid-home-nav fa-cart-shopping h-[46px]  cursor-pointer "
-              >
-                <div className="h-4 w-4 rounded-[100%] bg-[#23a6f0] text-white flex justify-center items-center text-[8px] ml-[-15px] font-normal mt-[-35px]">
-                  0
-                </div>
-              </i>
-              <i className="fa-regular fa-solid fa-solid-home-nav fa-heart h-[46px]">
-                <div className="h-4 w-4 rounded-[100%] bg-[#23a6f0] text-white flex justify-center items-center text-[8px] ml-[-15px] font-normal mt-[-35px]">
-                  100
-                </div>
-              </i>
-            </div>
-            <div
-              ref={ref}
-              className="sideCart w-[320px] h-[40rem] absolute top-0 right-0 bg-[#252B42]  text-white hidden"
-            >
-              <div className="flex justify-around items-center text-white bg-[#252B42] h-[3rem] ">
-                <b>Shoping Cart</b>
-                <b onClick={toggleCart} className="text-[30px] cursor-pointer">
-                  x
-                </b>
-              </div>
-              <div>
-                <ol className="flex flex-col gap-y-1">
-                  <li className="bg-purple-700 py-2">
-                    <div className="flex items-center gap-5">
-                      <div className="flex justify-around w-[100%] ">
-                        <span>{totalItems}</span>
-                        {cartImportData.map((e) => {
-                          return (
-                            <>
-                              <span>{e.title}</span>
-
-                              <span
-                                onClick={() => {
-                                  decrease(e.price);
-                                }}
-                                className="cursor-pointer"
-                              >
-                                -
-                              </span>
-                              <span>${incr}</span>
-                              <span
-                                onClick={() => {
-                                  increase(e.price);
-                                }}
-                                className="cursor-pointer"
-                              >
-                                +
-                              </span>
-                            </>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  </li>
-                </ol>
-                <div className="bg-sky-500 text-white p-2 w-32 rounded-md flex justify-between items-center cursor-pointer hover:bg-sky-600 ml-[30%] mt-[100%]">
-                  Add to Cart
-                  <i className="fa-solid fa-cart-shopping"></i>
-                </div>
-              </div>
-            </div>
+              </li>
+            ))}
+          </ol>
+          <div className="bg-sky-500 text-white p-2 w-32 rounded-md flex justify-between items-center cursor-pointer hover:bg-sky-600 ml-[30%] mt-4">
+            <span>Checkout</span>
+            <i className="fa-solid fa-cart-shopping"></i>
           </div>
         </div>
-        <ResponsiveNav />
-      </nav>
-    </>
+      </div>
+
+      <ResponsiveNav />
+    </nav>
   );
 }
