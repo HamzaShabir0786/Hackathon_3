@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Image as IImage } from "sanity";
 import { client } from "@/sanity/lib/client";
 import Link from "next/link";
-import Header from "../components/Header/Header";
+// import Header from "../components/Header/Header";
 
 const getproduct = async () => {
   return await client.fetch(
@@ -16,7 +16,7 @@ const getproduct = async () => {
       tags,
       isNew,
       "productImage": productImage.asset->url
-    }`
+      }`
   );
 };
 
@@ -30,11 +30,12 @@ interface DataType {
   productImage: IImage;
   _id: string;
 }
+const AddtoCart = (item: any) => {
+  localStorage.setItem("mycart", JSON.stringify([item]));
+};
 
 export default function FeaturedProducts() {
   const [products, setProducts] = useState<DataType[]>([]);
-  const [cartData, setCartData] = useState();
-  const [localData, setLocalData] = useState();
 
   useEffect(() => {
     (async () => {
@@ -43,16 +44,9 @@ export default function FeaturedProducts() {
     })();
   }, []);
 
-  const AddtoCart = (item: any) => {
-    setCartData(item);
-    localStorage.setItem("mycart", JSON.stringify([item]));
-  };
-
   return (
     <>
-      <div>
-        <Header bgColor="bg-[#ff1911]" cartdata={cartData} />
-      </div>
+      {/* <Header /> */}
       <div className="max-w-[1444px] h-[auto] m-auto">
         <div className="max-w-[1044px] h-[auto] px-2 m-auto">
           <div className="text-center py-[80px]">

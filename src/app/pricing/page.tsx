@@ -1,9 +1,7 @@
-import Nav2 from "../components/nav2/nav2";
 import CompaniesLogo from "../components/Companies-logo/companies-logo";
 export default function Pricing() {
   return (
     <>
-      <Nav2 />
       <div className="max-w-[1440px] h-auto m-auto  ">
         <div className="px-2 ">
           <div className="max-w-[1040px] m-auto ">

@@ -1,17 +1,10 @@
 "use client";
 import { usePathname } from "next/navigation";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import ResponsiveNav from "../responsive-nav/responsiveNav";
-type HeaderProps = {
-  bgColor?: string;
-  cartdata?: any;
-};
 
-export default function Header({
-  bgColor = "bg-[#252B42]",
-  cartdata,
-}: HeaderProps) {
+export default function Header() {
   const Data = [
     { title: "Home" },
     { title: "Shop" },
@@ -21,8 +14,26 @@ export default function Header({
     { title: "Products" },
   ];
 
-  console.log(cartdata?.price);
-  const pathname = usePathname();
+  const [cartImportData, setCartImportData] = useState<any[]>([]);
+  useEffect(() => {
+    const storedCart = localStorage.getItem("mycart");
+    if (storedCart) {
+      setCartImportData(JSON.parse(storedCart || "[]"));
+    }
+  }, []);
+
+  const [incr, setIncr] = useState<any>(0);
+  const [totalItems, setTotalItems] = useState<number>(0);
+  const increase = (data: any) => {
+    setIncr(incr + data);
+    // console.log(data + incr);
+    setTotalItems(totalItems + 1);
+  };
+  const decrease = (data: any) => {
+    setIncr(incr - data);
+    setTotalItems(totalItems - 1);
+    // console.log(data + incr);
+  };
   const toggleCart = () => {
     if (ref.current.classList.contains("hidden")) {
       ref.current.classList.remove("hidden");
@@ -33,12 +44,13 @@ export default function Header({
     }
   };
   const ref: any = useRef<HTMLElement>();
+  const pathname = usePathname();
 
   return (
     <>
-      <nav className="nav-con   max-w-[100%] m-auto   sticky top-0 z-50   ">
+      <nav className="nav-con   max-w-[100%] m-auto   sticky top-0 z-50  bg-[#252B42] ">
         <div
-          className={`child-nav-1    h-[3rem]  flex items-center justify-between px-4 text-white ${bgColor}`}
+          className={`child-nav-1    h-[3rem]  flex items-center justify-between px-4 text-white`}
         >
           <div className="flex justify-between ">
             <div className=" flex items-center gap-6 h-[46px] font-bold text-[14px] px-2">
@@ -159,11 +171,32 @@ export default function Header({
                   <li className="bg-purple-700 py-2">
                     <div className="flex items-center gap-5">
                       <div className="flex justify-around w-[100%] ">
-                        <span>1</span>
-                        <span>product Name</span>
-                        <span>-</span>
-                        <span>$99</span>
-                        <span className="cursor-pointer">+</span>
+                        <span>{totalItems}</span>
+                        {cartImportData.map((e) => {
+                          return (
+                            <>
+                              <span>{e.title}</span>
+
+                              <span
+                                onClick={() => {
+                                  decrease(e.price);
+                                }}
+                                className="cursor-pointer"
+                              >
+                                -
+                              </span>
+                              <span>${incr}</span>
+                              <span
+                                onClick={() => {
+                                  increase(e.price);
+                                }}
+                                className="cursor-pointer"
+                              >
+                                +
+                              </span>
+                            </>
+                          );
+                        })}
                       </div>
                     </div>
                   </li>

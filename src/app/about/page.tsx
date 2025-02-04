@@ -1,12 +1,9 @@
-import Nav2 from "../components/nav2/nav2";
 import CompaniesLogo from "../components/Companies-logo/companies-logo";
 import Data from "../../../public/aboutData.json";
 export default function About() {
   return (
     <>
       <div className="max-w-[1440px] h-auto   m-auto">
-        <Nav2 />
-
         <div className="about-grid  px-6 py-[20px]">
           <div className="about-grid-1  flex flex-col justify-center items-start gap-10 w-[100%]">
             <h5 className="text-[#252B42] text-[24px] font-bold">

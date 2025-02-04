@@ -40,7 +40,6 @@ export default async function ProductPage({ params }: Props) {
 
   return (
     <>
-      <Header />
       <div className="max-w-[1440px] m-auto h-auto   ">
         <div className="px-2">
           <ul className="flex justify-between items-center w-[150px]  py-[20px] ">
