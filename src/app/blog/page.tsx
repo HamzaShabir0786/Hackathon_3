@@ -1,7 +1,7 @@
 "use client";
 import productData from "../../../public/innovationData.json";
 import { useState } from "react";
-export default function Innovation() {
+export default function Blog() {
   const [Data, setData] = useState(productData);
   return (
     <>
