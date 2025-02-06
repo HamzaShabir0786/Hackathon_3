@@ -1,9 +1,10 @@
-// import Image from "next/image";
+import Link from "next/link";
 import Desktop2 from "./desktop2/page";
 import Products from "./products/page";
 import VitalClassic from "./vitalClassic/page";
 import Fluid from "./containerFluid/page";
 import FeaturedPost from "./featuredPost/page";
+
 export default function Home() {
   return (
     <>
@@ -20,9 +21,12 @@ export default function Home() {
               </h4>
             </div>
             <div className=" max-w-[221px] max-h-[62px] py-[15px] px-[40px] gap-[10px] bg-[#2DC071]">
-              <h3 className="text-[#fafafa] font-[700]   text-center">
+              <Link
+                href="/products"
+                className="text-[#fafafa] font-[700]   text-center"
+              >
                 SHOP NOW
-              </h3>
+              </Link>
             </div>
           </div>
         </div>

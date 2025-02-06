@@ -12,6 +12,7 @@ export default function Header() {
     { title: "Blog" },
     { title: "Contact" },
     { title: "Products" },
+    { title: "Pricing" },
   ];
 
   const [cartImportData, setCartImportData] = useState<any[]>([]);
