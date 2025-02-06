@@ -136,7 +136,7 @@ export default function Header() {
 
       <div
         ref={ref}
-        className="sideCart w-[320px] h-[40rem] absolute top-0 right-0 bg-[#252B42] text-white hidden"
+        className="sideCart w-[350px] h-[40rem]  absolute top-0 right-0 bg-[#252B42] text-white hidden"
       >
         <div className="flex justify-between items-center bg-[#252B42] p-4">
           <b>Shopping Cart</b>
@@ -148,35 +148,37 @@ export default function Header() {
           <ol className="flex flex-col gap-y-1">
             {cartImportData.map((e, index) => (
               <li key={index} className="bg-purple-700 py-2">
-                <div className="flex items-center gap-5">
-                  <span className="w-[25rem] text-center bg-blue-900 ">
+                <div className="flex justify-around items-center gap-5">
+                  <span className="min-w-[120px] max-w-[121px] text-center   ">
                     {e.title}
                   </span>
                   <span
                     onClick={() => decreaseQuantity(e._id)}
-                    className="cursor-pointer bg-pink-400 px-2 rounded-full"
+                    className="cursor-pointer  min-w-[20px] max-w-[20px] px-2 "
                   >
                     -
                   </span>
-                  <span>{e.quantity}</span>
+                  <span className="min-w-[20px] max-w-[30px]">
+                    {e.quantity}
+                  </span>
                   <span
                     onClick={() => increaseQuantity(e._id)}
-                    className="cursor-pointer"
+                    className="cursor-pointer "
                   >
                     +
                   </span>
-                  <span>${e.price * e.quantity}</span>
-                  <button
+                  <span className=" max-w-[auto] min-w-[60px]">
+                    ${e.price * e.quantity}
+                  </span>
+                  <i
                     onClick={() => removeFromCart(e._id)}
-                    className="text-red-600"
-                  >
-                    Re
-                  </button>
+                    className="text-[#23a6f0] fa-solid fa-trash cursor-pointer px-[3px]"
+                  ></i>
                 </div>
               </li>
             ))}
           </ol>
-          <div className="bg-sky-500 text-white p-2 w-32 rounded-md flex justify-between items-center cursor-pointer hover:bg-sky-600 ml-[30%] mt-4">
+          <div className="bg-sky-500 text-white p-2 w-32 rounded-md flex justify-around items-center cursor-pointer hover:bg-sky-600 ml-[30%] mt-4">
             <span>Checkout</span>
             <i className="fa-solid fa-cart-shopping"></i>
           </div>
