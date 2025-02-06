@@ -47,8 +47,10 @@ const addToCart = (item: DataType) => {
 };
 
 const getCartCount = () => {
-  const cart = JSON.parse(localStorage.getItem("mycart") || "[]");
-  return cart.reduce((total: number, item: any) => total + item.quantity, 0);
+  if (typeof window !== "undefined") {
+    const cart = JSON.parse(localStorage.getItem("mycart") || "[]");
+    return cart.reduce((total: number, item: any) => total + item.quantity, 0);
+  }
 };
 
 const increaseQuantity = (productId: string) => {
