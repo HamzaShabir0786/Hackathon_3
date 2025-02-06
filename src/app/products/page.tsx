@@ -30,6 +30,7 @@ interface DataType {
   _id: string;
 }
 
+
 const addToCart = (item: DataType) => {
   let cart: any[] = JSON.parse(localStorage.getItem("mycart") || "[]");
 
@@ -44,6 +45,8 @@ const addToCart = (item: DataType) => {
   }
 
   localStorage.setItem("mycart", JSON.stringify(cart));
+  
+  window.dispatchEvent(new Event("cartUpdated"));
 };
 
 const getCartCount = () => {
@@ -51,17 +54,6 @@ const getCartCount = () => {
     const cart = JSON.parse(localStorage.getItem("mycart") || "[]");
     return cart.reduce((total: number, item: any) => total + item.quantity, 0);
   }
-};
-
-const increaseQuantity = (productId: string) => {
-  let cart: any[] = JSON.parse(localStorage.getItem("mycart") || "[]");
-
-  const productIndex = cart.findIndex((item) => item._id === productId);
-  if (productIndex !== -1) {
-    cart[productIndex].quantity += 1;
-  }
-
-  localStorage.setItem("mycart", JSON.stringify(cart));
 };
 
 export default function FeaturedProducts() {
@@ -75,15 +67,15 @@ export default function FeaturedProducts() {
     })();
   }, []);
 
+  
   useEffect(() => {
-    const cartListener = () => {
+    const updateCartCount = () => {
       setCartCount(getCartCount());
     };
 
-    window.addEventListener("storage", cartListener);
-
+    window.addEventListener("cartUpdated", updateCartCount);
     return () => {
-      window.removeEventListener("storage", cartListener);
+      window.removeEventListener("cartUpdated", updateCartCount);
     };
   }, []);
 

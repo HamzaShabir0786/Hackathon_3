@@ -16,20 +16,48 @@
 //   ];
 
 //   const [cartImportData, setCartImportData] = useState<any[]>([]);
+//   const [isCheckout, setIsCheckout] = useState(false);
+//   const [checkoutDetails, setCheckoutDetails] = useState({
+//     name: "",
+//     email: "",
+//     address: "",
+//   });
 
-//   useEffect(() => {
+//   // Function to load the cart from localStorage
+//   const loadCart = () => {
 //     const storedCart = localStorage.getItem("mycart");
 //     if (storedCart) {
 //       setCartImportData(JSON.parse(storedCart));
+//     } else {
+//       setCartImportData([]);
 //     }
+//   };
+
+//   useEffect(() => {
+//     loadCart();
 //   }, []);
 
 //   useEffect(() => {
 //     localStorage.setItem("mycart", JSON.stringify(cartImportData));
 //   }, [cartImportData]);
 
+//   useEffect(() => {
+//     const updateCart = () => {
+//       loadCart();
+//     };
+
+//     window.addEventListener("cartUpdated", updateCart);
+//     return () => {
+//       window.removeEventListener("cartUpdated", updateCart);
+//     };
+//   }, []);
+
 //   const totalItems = cartImportData.reduce(
 //     (acc, item) => acc + item.quantity,
+//     0
+//   );
+//   const totalPrice = cartImportData.reduce(
+//     (acc, item) => acc + item.price * item.quantity,
 //     0
 //   );
 
@@ -47,6 +75,8 @@
 //     } else {
 //       setCartImportData([...cartImportData, { ...product, quantity: 1 }]);
 //     }
+
+//     window.dispatchEvent(new Event("cartUpdated"));
 //   };
 
 //   const increaseQuantity = (id: string) => {
@@ -55,6 +85,7 @@
 //         item._id === id ? { ...item, quantity: item.quantity + 1 } : item
 //       )
 //     );
+//     window.dispatchEvent(new Event("cartUpdated"));
 //   };
 
 //   const decreaseQuantity = (id: string) => {
@@ -65,10 +96,24 @@
 //           : item
 //       )
 //     );
+//     window.dispatchEvent(new Event("cartUpdated"));
 //   };
 
 //   const removeFromCart = (id: string) => {
 //     setCartImportData(cartImportData.filter((item) => item._id !== id));
+//     window.dispatchEvent(new Event("cartUpdated"));
+//   };
+
+//   const handleCheckout = () => {
+//     alert(`Thank you, ${checkoutDetails.name}! Your order has been placed.`);
+//     setCartImportData([]);
+//     setIsCheckout(false);
+//     setCheckoutDetails({ name: "", email: "", address: "" });
+//     window.dispatchEvent(new Event("cartUpdated"));
+//   };
+
+//   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+//     setCheckoutDetails({ ...checkoutDetails, [e.target.name]: e.target.value });
 //   };
 
 //   const ref = useRef<HTMLDivElement>(null);
@@ -137,7 +182,7 @@
 
 //       <div
 //         ref={ref}
-//         className="sideCart w-[350px] h-[40rem]  absolute top-0 right-0 bg-[#252B42] text-white hidden"
+//         className="sideCart w-[350px] min-h-[40rem] max-h-[auto] absolute top-0 right-0 bg-[#252B42] text-white hidden"
 //       >
 //         <div className="flex justify-between items-center bg-[#252B42] p-4">
 //           <b>Shopping Cart</b>
@@ -145,45 +190,94 @@
 //             x
 //           </b>
 //         </div>
-//         <div>
-//           <ol className="flex flex-col gap-y-1">
-//             {cartImportData.map((e, index) => (
-//               <li key={index} className="bg-purple-700 py-2">
-//                 <div className="flex justify-around items-center gap-5">
-//                   <span className="min-w-[120px] max-w-[121px] text-center   ">
-//                     {e.title}
-//                   </span>
-//                   <span
-//                     onClick={() => decreaseQuantity(e._id)}
-//                     className="cursor-pointer  min-w-[20px] max-w-[20px] px-2 "
-//                   >
-//                     -
-//                   </span>
-//                   <span className="min-w-[20px] max-w-[30px]">
-//                     {e.quantity}
-//                   </span>
-//                   <span
-//                     onClick={() => increaseQuantity(e._id)}
-//                     className="cursor-pointer "
-//                   >
-//                     +
-//                   </span>
-//                   <span className=" max-w-[auto] min-w-[60px]">
-//                     ${e.price * e.quantity}
-//                   </span>
-//                   <i
-//                     onClick={() => removeFromCart(e._id)}
-//                     className="text-[#23a6f0] fa-solid fa-trash cursor-pointer px-[3px]"
-//                   ></i>
-//                 </div>
-//               </li>
-//             ))}
-//           </ol>
-//           <div className="bg-sky-500 text-white p-2 w-32 rounded-md flex justify-around items-center cursor-pointer hover:bg-sky-600 ml-[30%] mt-4">
-//             <span>Checkout</span>
-//             <i className="fa-solid fa-cart-shopping"></i>
+
+//         {!isCheckout ? (
+//           <div>
+//             <ol className="flex flex-col gap-y-1">
+//               {cartImportData.map((e, index) => (
+//                 <li key={index} className="bg-purple-700 py-2">
+//                   <div className="flex justify-around items-center gap-5">
+//                     <span className="min-w-[120px] max-w-[121px] text-center">
+//                       {e.title}
+//                     </span>
+//                     <span
+//                       onClick={() => decreaseQuantity(e._id)}
+//                       className="cursor-pointer min-w-[20px] max-w-[20px] px-2"
+//                     >
+//                       -
+//                     </span>
+//                     <span className="min-w-[20px] max-w-[30px]">
+//                       {e.quantity}
+//                     </span>
+//                     <span
+//                       onClick={() => increaseQuantity(e._id)}
+//                       className="cursor-pointer"
+//                     >
+//                       +
+//                     </span>
+//                     <span className="max-w-[auto] min-w-[60px]">
+//                       ${e.price * e.quantity}
+//                     </span>
+//                     <i
+//                       onClick={() => removeFromCart(e._id)}
+//                       className="text-[#23a6f0] fa-solid fa-trash cursor-pointer px-[3px]"
+//                     ></i>
+//                   </div>
+//                 </li>
+//               ))}
+//             </ol>
+
+//             <div
+//               className="bg-sky-500 text-white p-2 w-32 rounded-md flex justify-around items-center cursor-pointer hover:bg-sky-600 ml-[30%] mt-4"
+//               onClick={() => setIsCheckout(true)}
+//             >
+//               <span>Checkout</span>
+//               <i className="fa-solid fa-cart-shopping"></i>
+//             </div>
 //           </div>
-//         </div>
+//         ) : (
+//           <div className="p-4">
+//             <h2 className="text-xl font-bold mb-4">Checkout</h2>
+//             <input
+//               type="text"
+//               name="name"
+//               placeholder="Name"
+//               value={checkoutDetails.name}
+//               onChange={handleChange}
+//               className="w-full p-2 mb-2 rounded text-black"
+//             />
+//             <input
+//               type="email"
+//               name="email"
+//               placeholder="Email"
+//               value={checkoutDetails.email}
+//               onChange={handleChange}
+//               className="w-full p-2 mb-2 rounded text-black"
+//             />
+//             <input
+//               type="text"
+//               name="address"
+//               placeholder="Address"
+//               value={checkoutDetails.address}
+//               onChange={handleChange}
+//               className="w-full p-2 mb-4 rounded text-black"
+//             />
+//             <div className="flex justify-between">
+//               <button
+//                 onClick={() => setIsCheckout(false)}
+//                 className="bg-gray-500 px-4 py-2 rounded hover:bg-gray-600"
+//               >
+//                 Back
+//               </button>
+//               <button
+//                 onClick={handleCheckout}
+//                 className="bg-green-500 px-4 py-2 rounded hover:bg-green-600"
+//               >
+//                 Place Order (${totalPrice.toFixed(2)})
+//               </button>
+//             </div>
+//           </div>
+//         )}
 //       </div>
 
 //       <ResponsiveNav />
@@ -216,16 +310,36 @@ export default function Header() {
     address: "",
   });
 
-  useEffect(() => {
+  // Helper function to load the cart from localStorage
+  const loadCart = () => {
     const storedCart = localStorage.getItem("mycart");
     if (storedCart) {
       setCartImportData(JSON.parse(storedCart));
+    } else {
+      setCartImportData([]);
     }
+  };
+
+  useEffect(() => {
+    loadCart();
   }, []);
 
+  // This effect keeps localStorage in sync with the cart state.
   useEffect(() => {
     localStorage.setItem("mycart", JSON.stringify(cartImportData));
   }, [cartImportData]);
+
+  // Listen for the custom "cartUpdated" event to refresh the cart state.
+  useEffect(() => {
+    const updateCart = () => {
+      loadCart();
+    };
+
+    window.addEventListener("cartUpdated", updateCart);
+    return () => {
+      window.removeEventListener("cartUpdated", updateCart);
+    };
+  }, []);
 
   const totalItems = cartImportData.reduce(
     (acc, item) => acc + item.quantity,
@@ -240,38 +354,48 @@ export default function Header() {
     const existingItem = cartImportData.find(
       (item) => item._id === product._id
     );
+    let updatedCart;
     if (existingItem) {
-      const updatedCart = cartImportData.map((item) =>
+      updatedCart = cartImportData.map((item) =>
         item._id === product._id
           ? { ...item, quantity: item.quantity + 1 }
           : item
       );
-      setCartImportData(updatedCart);
     } else {
-      setCartImportData([...cartImportData, { ...product, quantity: 1 }]);
+      updatedCart = [...cartImportData, { ...product, quantity: 1 }];
     }
+    // Update state and localStorage synchronously.
+    setCartImportData(updatedCart);
+    localStorage.setItem("mycart", JSON.stringify(updatedCart));
+    window.dispatchEvent(new Event("cartUpdated"));
   };
 
   const increaseQuantity = (id: string) => {
-    setCartImportData(
-      cartImportData.map((item) =>
-        item._id === id ? { ...item, quantity: item.quantity + 1 } : item
-      )
+    const updatedCart = cartImportData.map((item) =>
+      item._id === id ? { ...item, quantity: item.quantity + 1 } : item
     );
+    setCartImportData(updatedCart);
+    localStorage.setItem("mycart", JSON.stringify(updatedCart));
+    window.dispatchEvent(new Event("cartUpdated"));
   };
 
   const decreaseQuantity = (id: string) => {
-    setCartImportData(
-      cartImportData.map((item) =>
-        item._id === id && item.quantity > 1
-          ? { ...item, quantity: item.quantity - 1 }
-          : item
-      )
+    const updatedCart = cartImportData.map((item) =>
+      // Only decrease if quantity is more than 1.
+      item._id === id && item.quantity > 1
+        ? { ...item, quantity: item.quantity - 1 }
+        : item
     );
+    setCartImportData(updatedCart);
+    localStorage.setItem("mycart", JSON.stringify(updatedCart));
+    window.dispatchEvent(new Event("cartUpdated"));
   };
 
   const removeFromCart = (id: string) => {
-    setCartImportData(cartImportData.filter((item) => item._id !== id));
+    const updatedCart = cartImportData.filter((item) => item._id !== id);
+    setCartImportData(updatedCart);
+    localStorage.setItem("mycart", JSON.stringify(updatedCart));
+    window.dispatchEvent(new Event("cartUpdated"));
   };
 
   const handleCheckout = () => {
@@ -279,6 +403,7 @@ export default function Header() {
     setCartImportData([]);
     setIsCheckout(false);
     setCheckoutDetails({ name: "", email: "", address: "" });
+    window.dispatchEvent(new Event("cartUpdated"));
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -351,7 +476,7 @@ export default function Header() {
 
       <div
         ref={ref}
-        className="sideCart w-[350px] h-[40rem] absolute top-0 right-0 bg-[#252B42] text-white hidden"
+        className="sideCart w-[350px] min-h-[40rem] max-h-[auto] absolute top-0 right-0 bg-[#252B42] text-white hidden"
       >
         <div className="flex justify-between items-center bg-[#252B42] p-4">
           <b>Shopping Cart</b>
@@ -397,7 +522,7 @@ export default function Header() {
             </ol>
 
             <div
-              className="bg-sky-500 text-white p-2 w-32 rounded-md flex justify-around items-center cursor-pointer hover:bg-sky-600 ml-[30%] mt-4"
+              className="bg-sky-500 text-white p-2  w-32 rounded-md flex justify-around items-center cursor-pointer hover:bg-sky-600 ml-[30%] mt-4 mb-4 "
               onClick={() => setIsCheckout(true)}
             >
               <span>Checkout</span>
