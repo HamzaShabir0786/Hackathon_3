@@ -199,7 +199,7 @@ export default function Header() {
           <div>
             <ol className="flex flex-col gap-y-1">
               {cartImportData.map((e, index) => (
-                <li key={index} className="bg-purple-700 py-2">
+                <li key={index} className="bg-gray-50 text-black py-2">
                   <div className="flex justify-around items-center gap-5">
                     <span className="min-w-[120px] max-w-[121px] text-center">
                       {e.title}
