@@ -4,6 +4,11 @@ import Products from "./products/page";
 import VitalClassic from "./vitalClassic/page";
 import Fluid from "./containerFluid/page";
 import FeaturedPost from "./featuredPost/page";
+import { Metadata } from "next";
+export const metadata: Metadata = {
+  title: "Home",
+  description: "It's a Home Page.",
+};
 
 export default function Home() {
   return (
