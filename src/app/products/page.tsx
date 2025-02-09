@@ -30,7 +30,6 @@ interface DataType {
   _id: string;
 }
 
-
 const addToCart = (item: DataType) => {
   let cart: any[] = JSON.parse(localStorage.getItem("mycart") || "[]");
 
@@ -45,7 +44,7 @@ const addToCart = (item: DataType) => {
   }
 
   localStorage.setItem("mycart", JSON.stringify(cart));
-  
+
   window.dispatchEvent(new Event("cartUpdated"));
 };
 
@@ -67,7 +66,6 @@ export default function FeaturedProducts() {
     })();
   }, []);
 
-  
   useEffect(() => {
     const updateCartCount = () => {
       setCartCount(getCartCount());
